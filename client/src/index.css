@@ -1,112 +1,106 @@
+/* ====================== Fonts ====================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
+/* ====================== Tailwind Layers ====================== */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ====================== Base Layer ====================== */
 @layer base {
   :root {
+    /* Light theme variables */
     --background: 0 0% 100%;
     --foreground: 0 0% 4%;
-
     --card: 0 0% 100%;
     --card-foreground: 0 0% 4%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 4%;
-
     --primary: 0 0% 9%;
     --primary-foreground: 0 0% 98%;
-
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
-
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
-
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 4%;
+    --radius: 0rem;
 
-    --radius: 0rem; /* Stark, sharp edges for brutalist/Cherygptist feel */
-    
+    /* Fonts */
     --font-sans: 'Inter', sans-serif;
     --font-display: 'Space Grotesk', sans-serif;
   }
 
   .dark {
-    --background: 0 0% 2%; /* Almost pitch black */
-    --foreground: 0 0% 98%; /* Off-white */
-
+    /* Dark theme overrides */
+    --background: 0 0% 2%;
+    --foreground: 0 0% 98%;
     --card: 0 0% 4%;
     --card-foreground: 0 0% 98%;
-
     --popover: 0 0% 4%;
     --popover-foreground: 0 0% 98%;
-
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 4%;
-
     --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 98%;
-
     --muted: 0 0% 10%;
     --muted-foreground: 0 0% 63.9%;
-
     --accent: 0 0% 10%;
     --accent-foreground: 0 0% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 0 0% 14%;
     --input: 0 0% 14%;
     --ring: 0 0% 83.1%;
   }
-}
 
-@layer base {
-  * {
-    @apply border-border;
+  /* ====================== Global Styles ====================== */
+  *, *::before, *::after {
+    border-width: 1px;
+    border-style: solid;
+    border-color: hsl(var(--border));
   }
-  
+
   body {
-    @apply bg-background text-foreground antialiased;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-family: var(--font-sans);
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    @apply tracking-tight;
+    letter-spacing: -0.02em; /* Tailwind tracking-tight */
   }
 }
 
-/* Custom Utilities for the Premium Feel */
+/* ====================== Custom Utilities ====================== */
 @layer utilities {
+  /* Text outline effect */
   .text-outline {
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
     color: transparent;
   }
-  
   .text-outline:hover {
     color: hsl(var(--foreground));
     -webkit-text-stroke: 1px transparent;
   }
 
+  /* Diagonal clip-path */
   .clip-path-diagonal {
     clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
   }
-  
+
+  /* Noise background */
   .noise-bg {
     position: relative;
   }
-  
   .noise-bg::before {
     content: "";
     position: absolute;
@@ -117,27 +111,32 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
+  /* Hover lift animation (fixed for production) */
   .hover-lift {
-    @apply transition-transform duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] hover:-translate-y-2;
+    transition-property: transform;
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0.33,1,0.68,1);
   }
-  
-  /* A slow pan animation to simulate a GIF for the placeholder */
+  .hover-lift:hover {
+    transform: translateY(-0.5rem); /* -translate-y-2 */
+  }
+
+  /* Slow pan animation */
   .animate-slow-pan {
     animation: slowPan 20s ease-in-out infinite alternate;
   }
-  
   @keyframes slowPan {
     0% { transform: scale(1.05) translate(0, 0); }
     100% { transform: scale(1.15) translate(-2%, -2%); }
   }
 }
 
-/* Override input autofill background to match dark theme */
+/* ====================== Input Autofill Override ====================== */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px hsl(var(--background)) inset !important;
-    -webkit-text-fill-color: hsl(var(--foreground)) !important;
-    transition: background-color 5000s ease-in-out 0s;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px hsl(var(--background)) inset !important;
+  -webkit-text-fill-color: hsl(var(--foreground)) !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
