@@ -7,6 +7,9 @@ export const waitlist = pgTable("waitlist", {
   id: serial("id").primaryKey(),
   email: text("email").notNull().unique(),
   walletAddress: text("wallet_address"),
+  twitterName: text("twitter_name"),
+  quoteLink: text("quote_link"),
+  commentLink: text("comment_link"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 

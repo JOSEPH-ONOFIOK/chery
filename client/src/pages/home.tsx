@@ -26,7 +26,7 @@ export default function Home() {
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="relative h-[100svh] w-full flex items-center justify-center overflow-hidden">
+      <section className="relative h-[100svh] w-full flex items-center justify-center overflow-hidden cursor-pointer" onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}>
         <motion.div 
           style={{ y: yHero, opacity: opacityHero }}
           className="absolute inset-0 z-0"
