@@ -13,7 +13,7 @@ export function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 mix-blend-difference px-6 py-6 md:px-12 flex justify-between items-center pointer-events-none"
     >
       <div className="text-white font-display font-bold text-xl tracking-[0.2em] uppercase">
-        MINIMAL
+        Cherygpt
       </div>
       
       <button 
