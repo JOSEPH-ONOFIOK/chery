@@ -5,7 +5,7 @@ import path from "path";
 export default defineConfig({
   root: "client", // your project root
   plugins: [react()],
-  base: "/chery/", // base path for GitHub Pages
+  base: "https://joseph-onofiok.github.io/chery", // base path for GitHub Pages
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client/src"), // make sure this points to src
