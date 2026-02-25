@@ -5,14 +5,14 @@ import path from "path";
 export default defineConfig({
   root: "client", // your project root
   plugins: [react()],
-  base: "/chery/", // optional, if you need it for CDN or relative paths
+  base: "/chery/", // base path for GitHub Pages
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client/src"), // make sure this points to the correct src
+      "@": path.resolve(__dirname, "client/src"), // make sure this points to src
     },
   },
   build: {
-    outDir: "../dist", // output folder relative to root
-    emptyOutDir: true, // clear output folder before building
+    outDir: "../dist", // output folder relative to project root
+    emptyOutDir: true, // clear folder before build
   },
 });
